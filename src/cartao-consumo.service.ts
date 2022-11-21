@@ -140,7 +140,7 @@ export class CartaoConsumoService {
 
   logar(nome: any, senha: any) {
     return this.HttpClient.get(
-      `${environment.apiurl}api/UsuarioCartaoConsumo/obterLogin/${nome}/${senha}`
+      `${environment.apiurl}api/UsuarioCartaoConsumo/obterLogin/${nome}/${senha}/${environment.resId}`
     )
       .toPromise()
       .then((res) => {
@@ -194,7 +194,7 @@ export class CartaoConsumoService {
 
   obterGrupos() {
     return this.HttpClient.get(
-      `${environment.apiurl}api/GrupoConsumo/obterTodosGrupo/`
+      `${environment.apiurl}api/GrupoConsumo/obterTodosGrupo/${environment.resId}`
     )
       .toPromise()
       .then((res) => {
@@ -247,7 +247,7 @@ export class CartaoConsumoService {
 
   public obterTudoAbertoPorDia(date: any, login: any) {
     return this.HttpClient.get(
-      `${environment.apiurl}api/CartaoConsumo/obterCaixaAberto/${date}/${login}`
+      `${environment.apiurl}api/CartaoConsumo/obterCaixaAberto/${date}/${login}/${environment.resId}`
     ).toPromise().then((res)=>{return res});
   }
   fecharCaixa(date: any, login: any, valor: any) {
@@ -263,13 +263,13 @@ export class CartaoConsumoService {
 
   public obterTudoAuditoria() {
     return this.HttpClient.get(
-      `${environment.apiurl}api/CartaoConsumo/obterAuditoria`
+      `${environment.apiurl}api/CartaoConsumo/obterAuditoria/${environment.resId}`
     ).toPromise().then((res)=>{return res});
   }
 
   public obterAuditoriaData(date: any) {
     return this.HttpClient.get(
-      `${environment.apiurl}api/CartaoConsumo/obterAuditoriaData/${date}`
+      `${environment.apiurl}api/CartaoConsumo/obterAuditoriaData/${date}/${environment.resId}`
     ).toPromise().then((res)=>{return res});
   }
 

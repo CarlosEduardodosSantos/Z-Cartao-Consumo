@@ -128,7 +128,7 @@ export class AdminConsumoComponent implements OnInit {
       registradoPor: localStorage.getItem('login'),
       frete: this.frete,
     };
-    if (_numero.value !== '' && _desc !== '' && _validade !== '') {
+    if (_numero.value !== ''&& _nome.value !=='') {
       let consumo: any;
       await this.CartaoConsumoService.obterConsuByNr(_numero.value).then(
         (consum) => {

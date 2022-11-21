@@ -60,6 +60,7 @@ export class GruposComponent implements OnInit {
   async onSubmit(data: any) {
     if (this.acao == false) {
       if (data.descricao != '') {
+        data.RestauranteId = environment.resId;
         await this.CartaoConsumoService.salvarGrupo(data);
         console.log(data);
         location.reload();

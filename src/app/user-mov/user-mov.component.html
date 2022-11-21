@@ -13,7 +13,9 @@
           alt=""
           class="d-inline-block align-middle mr-2"
         />
-        <span class="text-uppercase font-weight-bold mx-4">Consulta Cartão Consumo</span>
+        <span class="text-uppercase font-weight-bold mx-4"
+          >Consulta Cartão Consumo</span
+        >
       </a>
 
       <div class="d-flex">
@@ -53,9 +55,10 @@
           *ngIf="isAdmin === '1' || isAdmin === '3'"
           (click)="voltarLogin()"
         >
-        <i class="fa-solid fa-arrow-left"></i>
+          <i class="fa-solid fa-arrow-left"></i>
         </button>
-        <button *ngIf="isAdmin !=='1' && isAdmin !=='3'"
+        <button
+          *ngIf="isAdmin !== '1' && isAdmin !== '3'"
           id="printPageButton"
           title="Sair"
           class="btn btn-danger mx-2"
@@ -168,17 +171,20 @@
         <td>{{ converterCurrencyMov(mov.saldo, mov.tipoMov) }}</td>
         <td>{{ mov.login }}</td>
         <td>{{ converteMetodo(mov.metodo) }}</td>
-        <td  id="printPageButton">
+        <td id="printPageButton">
           <button
-          id="printPageButton"
-            title="Extorno"
+            id="printPageButton"
+            title="Estorno"
             class="btn btn-danger mx-2"
-            *ngIf="isAdmin === '1' && mov.tipoMov === 1 || isAdmin === '3' && mov.tipoMov === 1"
-            (click)=" deleteMovById(mov.cartaoConsumoMovId)"
+            *ngIf="
+              (isAdmin === '1' && mov.tipoMov === 1) ||
+              (isAdmin === '3' && mov.tipoMov === 1)
+            "
+            (click)="deleteMovById(mov.cartaoConsumoMovId)"
           >
-          <i class="fa-solid fa-money-bill-trend-up"></i>
+            <i class="fa-solid fa-money-bill-trend-up"></i>
           </button>
-          </td>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -623,7 +629,7 @@
               (change)="logar(tipo2.value)"
             >
               <option value="1">Positivo</option>
-              <option  [disabled]="isAdmin !== '1'" value="2">Negativo</option>
+              <option [disabled]="isAdmin !== '1'" value="2">Negativo</option>
             </select>
           </div>
           <div [hidden]="tipo2.value == '2'" class="mb-3">
