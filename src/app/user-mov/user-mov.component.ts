@@ -326,4 +326,12 @@ export class UserMovComponent implements OnInit {
     let dataFormatada = new Date(data).toLocaleDateString()
     return  dataFormatada;
   }
+
+  zerarCartao(){
+    console.log(this.consumo)
+    if (confirm('Tem certeza que deseja zerar o cartão?'))
+    this.CartaoConsumoService.zerarCartao(this.consumo.cartaoConsumoId, localStorage.getItem('login')).then(() =>
+        location.reload()
+      );
+  }
 }

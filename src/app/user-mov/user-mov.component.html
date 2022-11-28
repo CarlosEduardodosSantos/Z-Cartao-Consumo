@@ -49,6 +49,16 @@
         </button>
 
         <button
+        id="printPageButton"
+        title="Zerar Cartão"
+        class="btn btn-danger mx-2"
+        *ngIf="isAdmin === '1' || isAdmin === '3'"
+         (click)="zerarCartao()"
+      >
+        <i class="fa-brands fa-creative-commons-zero"></i>
+      </button>
+
+        <button
           id="printPageButton"
           title="Voltar"
           class="btn btn-dark mx-2"

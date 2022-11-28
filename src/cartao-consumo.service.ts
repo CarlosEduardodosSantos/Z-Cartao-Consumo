@@ -273,6 +273,16 @@ export class CartaoConsumoService {
     ).toPromise().then((res)=>{return res});
   }
 
+  //zerarCartão
+
+  zerarCartao(id: any, login: any) {
+    return this.HttpClient
+      .put(`${environment.apiurl}api/CartaoConsumo/zerarCartao/${id}/${login}`, null)
+      .toPromise()
+      .then((res) => {
+        return res;
+      });
+  }
 
 
 
