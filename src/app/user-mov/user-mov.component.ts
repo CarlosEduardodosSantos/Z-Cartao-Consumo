@@ -183,6 +183,14 @@ export class UserMovComponent implements OnInit {
 
   getTxtInfoMov(_saldo: any, _tipoMov: any, _metodo: any) {
     var metodo: any = _metodo;
+    if(_saldo.includes('-'))
+    {
+      _tipoMov = 2;
+    }
+    else
+    {
+      _tipoMov = _tipoMov;
+    }
     if(_tipoMov == 2)
     {
       metodo = 0

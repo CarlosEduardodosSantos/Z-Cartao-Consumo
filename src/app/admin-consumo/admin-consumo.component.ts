@@ -25,10 +25,10 @@ export class AdminConsumoComponent implements OnInit {
   totalzao: any;
   restaurante: any;
   resNro = environment.resId;
-  shortdate: any;
+  shortdate: any = '';
   movimentacao: any;
   consumo: any = '';
-  consumoAtual: any;
+  consumoAtual: any = '';
   Id: any;
   searchText: any;
   index: any = 0;
@@ -36,14 +36,14 @@ export class AdminConsumoComponent implements OnInit {
   dataMovAtual: any = new Date();
   soma: any;
   consumotodos: any;
-  grupos: any;
+  grupos: any = '';
   desc: any = '';
   frete: any = true;
   consumo2: any;
   listConsum: any[] =[];
   login: any = localStorage.getItem('login');
   isAdmin: any = localStorage.getItem('admin');
-  collectionSize = this.consumo.length;
+  collectionSize: any = '';
 
   makePdf() {
     let pdf = new jsPDF('p', 'pt', 'a4');
@@ -227,10 +227,7 @@ export class AdminConsumoComponent implements OnInit {
       this.listConsum = this.consumo.results;
     });
     console.log(this.consumo);
-    this.consumo.results.validade.forEach(
-      this.converterShortDate(this.consumo.results.validade)
-    );
-    console.log(this.shortdate);
+    this.collectionSize = this.consumo.results.length;
     console.log(this.consumo);
   }
 
@@ -261,7 +258,7 @@ export class AdminConsumoComponent implements OnInit {
     await this.CartaoConsumoService.deleteMovCartConsu(id);
   }
 
-  converterShortDate(data: any) {
+  async converterShortDate(data: any) {
     let dataco = new Date(data).getUTCDate();
     let dia = new Date(data).getDate();
     let mes = new Date(data).getMonth() + 1;
@@ -353,12 +350,19 @@ export class AdminConsumoComponent implements OnInit {
   }
 
   async getTxtInfoMov(_saldo: any, _tipoMov: any, _metodo: any) {
+    if(_saldo.includes('-'))
+    {
+      window.alert('Movimentações negativas apenas podem ser realizadas na tela detalhes!')
+    }
+    else
+    {
+      
+    
     await this.CartaoConsumoService.obterConsuById(this.Id).then((consum) => {
-      this.consumo = consum;
-      this.listConsum = this.consumo.results;
+      this.consumoAtual = consum;
     });
     this.mov = {
-      numeroCartao: this.consumo.numero,
+      numeroCartao: this.consumoAtual.numero,
       valor: _saldo,
       tipoMov: _tipoMov,
       restauranteId: environment.resId,
@@ -369,7 +373,8 @@ export class AdminConsumoComponent implements OnInit {
     if (this.mov.valor !== '' && this.mov.tipoMov !== '') {
       this.dataMovAtual = new Date();
       this.valorMovAtual = this.mov.valor;
-      let soma = parseFloat(this.consumo.saldoAtual) + parseFloat(_saldo);
+      console.log(this.valorMovAtual);
+      let soma = parseFloat(this.consumoAtual.saldoAtual) + parseFloat(_saldo);
       this.soma = soma;
 
       this.CartaoConsumoService.insertMov(this.mov);
@@ -379,16 +384,22 @@ export class AdminConsumoComponent implements OnInit {
       this.reloading();
     }
   }
+  }
 
   async getTxtInfoMovWithNro(_saldo: any, _tipoMov: any, _metodo: any) {
+    if(_saldo.includes('-'))
+    {
+      window.alert('Movimentações negativas apenas podem ser realizadas na tela detalhes!')
+    }
+    else
+    {
     await this.CartaoConsumoService.obterConsuByNr(this.consumId).then(
       (consum) => {
-        this.consumo = consum;
-        this.listConsum = this.consumo.results;
+        this.consumoAtual = consum;
       }
     );
     if (
-      this.consumo !== null &&
+      this.consumoAtual !== null &&
       this.consumId !== '' &&
       this.consumId !== null &&
       _saldo !== '' &&
@@ -396,7 +407,7 @@ export class AdminConsumoComponent implements OnInit {
     ) {
       this.index = 0;
       this.mov = {
-        numeroCartao: this.consumo.numero,
+        numeroCartao: this.consumoAtual.numero,
         valor: _saldo,
         tipoMov: _tipoMov,
         restauranteId: environment.resId,
@@ -404,12 +415,15 @@ export class AdminConsumoComponent implements OnInit {
         login: localStorage.getItem('login'),
         metodo: _metodo,
       };
+      this.dataMovAtual = new Date();
+      this.valorMovAtual = this.mov.valor;
       this.CartaoConsumoService.insertMov(this.mov);
     } else {
       window.alert('Cartão consumo não encontrado!');
       this.reloading();
       console.log(this.mov);
     }
+  }
   }
 
   goToUsers() {

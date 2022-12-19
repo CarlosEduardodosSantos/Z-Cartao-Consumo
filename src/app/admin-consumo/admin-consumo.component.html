@@ -166,7 +166,7 @@
   <ngb-pagination class="d-flex justify-content-center"
   [(page)]="page"
   [pageSize]="pageSize"
-  [collectionSize]="consumo.results.length"></ngb-pagination>
+  [collectionSize]="collectionSize"></ngb-pagination>
 </div>
 
 <div
@@ -651,10 +651,10 @@
         <h5><b>GRAND HOTEL</b></h5>
         <table class="table mt-3">
           <tr>
-            <td>Nome: {{ this.consumo.nome }}</td>
+            <td>Nome: {{ this.consumoAtual.nome }}</td>
           </tr>
           <tr>
-            <td>Nº: {{ this.consumo.numero }}</td>
+            <td>Nº: {{ this.consumoAtual.numero }}</td>
           </tr>
           <tr>
             <td>Data da transação: {{ converterLongDate(dataMovAtual) }}</td>
