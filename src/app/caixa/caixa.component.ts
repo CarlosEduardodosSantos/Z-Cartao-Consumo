@@ -74,6 +74,9 @@ console.log(this.caixa);
     else if(met == 5){
       return "Implantação de Crédito";
     }
+    else if(met == 6){
+      return "Voucher";
+    }
     else if(met == 0)
     {
       return "Negativa";
@@ -93,7 +96,7 @@ console.log(this.caixa);
 
   sumValoresCartao() {
     const sum = this.caixa.results
-      .filter((xx: any) => xx.metodo === 2 || xx.metodo === 3)
+      .filter((xx: any) => xx.metodo === 2 || xx.metodo === 3 || xx.metodo === 6)
       .reduce((sum: any, current: any) => sum + current.valor, 0);
     this.totalCartao = sum;
     return this.converterCurrency(sum);

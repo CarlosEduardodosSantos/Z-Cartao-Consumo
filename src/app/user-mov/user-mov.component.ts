@@ -321,6 +321,9 @@ export class UserMovComponent implements OnInit {
     else if(met == 5){
       return "Implantação de Crédito";
     }
+    else if(met == 6){
+      return "Voucher";
+    }
     else if(met == 0)
     {
       return "Negativa";
