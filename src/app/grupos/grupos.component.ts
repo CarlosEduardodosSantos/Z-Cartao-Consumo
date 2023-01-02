@@ -24,6 +24,7 @@ export class GruposComponent implements OnInit {
     grupos: any;
     grupo: any = '';
     acao: any;
+    frete: any;
 
     async ngOnInit() {
       await this.CartaoConsumoService.obterGrupos().then((groups) => {
@@ -58,9 +59,10 @@ export class GruposComponent implements OnInit {
   }
 
   async onSubmit(data: any) {
+    data.RestauranteId = environment.resId;
     if (this.acao == false) {
+      data.frete = this.frete;
       if (data.descricao != '') {
-        data.RestauranteId = environment.resId;
         await this.CartaoConsumoService.salvarGrupo(data);
         console.log(data);
         location.reload();
@@ -68,6 +70,7 @@ export class GruposComponent implements OnInit {
         window.alert('Por favor preencha todos os Campos!');
       }
     } else if (this.acao == true) {
+      data.frete = this.grupo.frete;
       if (data.descricao != '') {
         data.grupoId = this.grupo.grupoId;
         await this.CartaoConsumoService.alterarGrupo(data);

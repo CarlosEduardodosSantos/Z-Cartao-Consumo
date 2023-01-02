@@ -107,6 +107,16 @@
               placeholder="Ex: Colaboradores"
             />
           </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Cumpom Fiscal?</label
+            >
+            <input
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="frete"
+              type="checkbox"
+            />
+          </div>
           <button (click)="inserir()" type="submit" class="btn btn-primary">
             Cadastrar
           </button>
@@ -151,6 +161,16 @@
               min="0"
               #descricao
               class="form-control"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Cumpom Fiscal?</label
+            >
+            <input
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="grupo.frete"
+              type="checkbox"
             />
           </div>
           <button (click)="editar()" type="submit" class="btn btn-primary">

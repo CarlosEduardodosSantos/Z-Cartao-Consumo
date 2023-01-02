@@ -37,8 +37,9 @@ export class AdminConsumoComponent implements OnInit {
   soma: any;
   consumotodos: any;
   grupos: any = '';
+  grupo: any ='';
   desc: any = '';
-  frete: any = true;
+  frete: any;
   consumo2: any;
   listConsum: any[] =[];
   login: any = localStorage.getItem('login');
@@ -130,7 +131,7 @@ export class AdminConsumoComponent implements OnInit {
       saldoAtual: 0,
       grupo: _grupo.value,
       registradoPor: localStorage.getItem('login'),
-      frete: this.frete,
+      frete: this.frete
     };
     if (_numero.value !== ''&& _nome.value !=='') {
       let consumo: any;
@@ -221,6 +222,8 @@ export class AdminConsumoComponent implements OnInit {
     }
     await this.CartaoConsumoService.obterGrupos().then((grupos) => {
       this.grupos = grupos;
+      this.frete = this.grupos.results[0].frete;
+      console.log(this.frete);
     });
     await this.CartaoConsumoService.obterConsuByRes().then((consum) => {
       this.consumo = consum;
@@ -442,6 +445,14 @@ export class AdminConsumoComponent implements OnInit {
     this.router.navigate(['/auditoria/']);
   }
 
+  async pegaFrete(nome: any){
+    await this.CartaoConsumoService.grupoPorNome(nome).then((grupo) => {
+      this.grupo = grupo;
+    });
+    this.frete = this.grupo.frete;
+    console.log(this.frete)
+    }
+
   async impCre(id1: any, id2: any, vl: any){
     await this.CartaoConsumoService.obterConsuByNr(id1).then(
       (consum) => {
@@ -493,6 +504,8 @@ export class AdminConsumoComponent implements OnInit {
     }
 
   }
+
+
 
 
 }

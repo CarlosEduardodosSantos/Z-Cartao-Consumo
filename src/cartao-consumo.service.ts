@@ -212,6 +212,16 @@ export class CartaoConsumoService {
       });
   }
 
+  grupoPorNome(nome: any) {
+    return this.HttpClient.get(
+      `${environment.apiurl}api/GrupoConsumo/obterByGrupoNome/${nome}/${environment.resId}`
+    )
+      .toPromise()
+      .then((res) => {
+        return res;
+      });
+  }
+
   salvarGrupo(data: any) {
     return this.HttpClient.post(
       `${environment.apiurl}api/GrupoConsumo/adicionar`,

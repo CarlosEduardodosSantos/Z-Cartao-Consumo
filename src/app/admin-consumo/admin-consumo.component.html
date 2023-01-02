@@ -114,14 +114,20 @@
         <th scope="col">Nome</th>
         <th scope="col">Grupo</th>
         <th scope="col">CPF</th>
-        <th scope="col">Grupo</th>
+        <th scope="col">Descricao</th>
         <th scope="col">Validade</th>
         <th scope="col">Desconto</th>
         <th scope="col">Saldo Atual</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let consum of listConsum | slice: (page-1) * pageSize : page * pageSize; let i = index">
+      <tr
+        *ngFor="
+          let consum of listConsum
+            | slice : (page - 1) * pageSize : page * pageSize;
+          let i = index
+        "
+      >
         <td style="display: none" #Id>{{ consum.cartaoConsumoId }}</td>
         <td>{{ consum.numero }}</td>
         <td>{{ consum.nome }}</td>
@@ -132,7 +138,7 @@
         <td>{{ consum.desconto }}%</td>
         <td>{{ converterCurrency(consum.saldoAtual) }}</td>
 
-        <td>
+        <td style="min-width: 15vw">
           <button
             title="Detalhes"
             class="btn btn-warning mx-2"
@@ -163,10 +169,12 @@
       </tr>
     </tbody>
   </table>
-  <ngb-pagination class="d-flex justify-content-center"
-  [(page)]="page"
-  [pageSize]="pageSize"
-  [collectionSize]="collectionSize"></ngb-pagination>
+  <ngb-pagination
+    class="d-flex justify-content-center"
+    [(page)]="page"
+    [pageSize]="pageSize"
+    [collectionSize]="collectionSize"
+  ></ngb-pagination>
 </div>
 
 <div
@@ -202,7 +210,13 @@
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Grupo</label>
             <div class="input-group mb-3">
-              <select #desc style="width: 50%" class="form-select" name="desc">
+              <select
+                (change)="pegaFrete(grupo.value)"
+                #grupo
+                style="width: 50%"
+                class="form-select"
+                name="grupo"
+              >
                 <option
                   *ngFor="let grupo of grupos.results"
                   [ngValue]="grupo.descricao"
@@ -210,18 +224,6 @@
                   {{ grupo.descricao }}
                 </option>
               </select>
-              <div class="input-group-append">
-                <button
-                  title="Adicionar novo grupo"
-                  class="btn btn-success mx-2"
-                  *ngIf="isAdmin === '1'"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                  (click)="goToGroups()"
-                >
-                  <i class="fa-solid fa-circle-plus"></i>
-                </button>
-              </div>
             </div>
           </div>
 
@@ -315,7 +317,7 @@
               Desconto,
               Nome,
               restauranteId,
-              desc
+              grupo
             )
           "
           class="btn btn-primary"
@@ -558,7 +560,7 @@
               id="tipo"
             >
               <option value="1">Positivo</option>
-              <option disabled value="2">Negativo</option>
+              <option value="2">Negativo</option>
             </select>
           </div>
         </form>
@@ -761,7 +763,7 @@
               id="tipo"
             >
               <option value="1">Positivo</option>
-              <option disabled value="2">Negativo</option>
+              <option value="2">Negativo</option>
             </select>
           </div>
         </form>
